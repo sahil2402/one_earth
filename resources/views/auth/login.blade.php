@@ -28,7 +28,7 @@
         <div class="brand">
             <span class="brand-icon">
                 @if(!empty($websiteSetting->logo_path))
-                    <img src="/{{ $websiteSetting->logo_path }}" alt="{{ $websiteSetting->site_name ?? 'Logo' }}" style="width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.98)">
+                    <img src="{{ custom_upload($websiteSetting->logo_path) }}" alt="{{ $websiteSetting->site_name ?? 'Logo' }}" style="width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.98)">
                 @else
                     <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M29.7 16.2c0-1-.8-1.8-1.8-1.9l-9.4-1.1-4.8-7.8a1.8 1.8 0 0 0-3.2.4l-1.9 6.6-5.1-.6-2.2-3.1-1.6.2 1 3.6-1.3 3.1 1.6.2 2.8-2.4 5.1.6.1 6.8c0 .8.5 1.5 1.3 1.7.8.2 1.6-.2 1.9-.9l3.1-6.6 11.3 1.3h.2c1 0 1.8-.8 1.8-1.8Z"/></svg>
                 @endif
@@ -42,7 +42,7 @@
             @csrf
             <header class="card-head">
                 @if(!empty($websiteSetting->logo_path))
-                    <img class="logo-art" src="/{{ $websiteSetting->logo_path }}" alt="{{ $websiteSetting->site_name ?? 'Logo' }}">
+                    <img class="logo-art" src="{{ custom_upload($websiteSetting->logo_path) }}" alt="{{ $websiteSetting->site_name ?? 'Logo' }}">
                 @else
                     <svg class="logo-art" viewBox="0 0 120 95" aria-hidden="true"><defs><linearGradient id="sky" x1="18" y1="5" x2="87" y2="76"><stop stop-color="#22a0ed"/><stop offset="1" stop-color="#164eb8"/></linearGradient></defs><path d="M21 59A38 38 0 1 1 87 48" fill="none" stroke="url(#sky)" stroke-width="6" stroke-linecap="round"/><path d="M24 61c14 16 36 24 59 17" fill="none" stroke="#1852b7" stroke-width="6" stroke-linecap="round"/><path d="M43 75c10-8 24-9 33 1-10 7-23 9-35 4Z" fill="#ffae1a"/><path d="M99 35 81 40 68 34l-10 4 9 5-16 10-10-2-4 3 14 5 15-8 10 3 4-3-6-5 18-4 9-5-2-3Z" fill="#1553ba"/></svg>
                 @endif

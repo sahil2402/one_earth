@@ -1,7 +1,5 @@
 <?php
 
-define('APP_ASSET_MODE', 'dev'); // Options: 'dev' or 'live'
-
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
