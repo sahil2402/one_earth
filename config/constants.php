@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'app_asset_mode' => 'live', // Options: 'dev' or 'live'
+    'APP_ASSET_MODE' => 'live', // Options: 'dev' or 'live'
 ];
