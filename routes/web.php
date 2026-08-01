@@ -61,6 +61,11 @@ Route::middleware('role.auth')->group(function (): void {
     Route::post('/menus/city', [MenuPageController::class, 'storeCity'])->name('menus.cities.store');
     Route::put('/menus/city/{city}', [MenuPageController::class, 'updateCity'])->name('menus.cities.update');
     Route::delete('/menus/city/{city}', [MenuPageController::class, 'destroyCity'])->name('menus.cities.destroy');
+
+    Route::post('/menus/domain', [MenuPageController::class, 'storeDomain'])->name('menus.domains.store');
+    Route::put('/menus/domain/{domain}', [MenuPageController::class, 'updateDomain'])->name('menus.domains.update');
+    Route::delete('/menus/domain/{domain}', [MenuPageController::class, 'destroyDomain'])->name('menus.domains.destroy');
+
     // Website settings (owner only)
     Route::get('/settings/website', [\App\Http\Controllers\Settings\WebsiteSettingController::class, 'edit'])->name('settings.website');
     Route::post('/settings/website', [\App\Http\Controllers\Settings\WebsiteSettingController::class, 'update'])->name('settings.website.update');

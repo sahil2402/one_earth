@@ -13,7 +13,6 @@
     margin:18px 0;
     padding:26px;
     background:#fff;
-    border-radius:10px;
     box-shadow:0 6px 18px rgba(16,46,80,0.06);
 }
 .toolbar{
@@ -49,7 +48,7 @@
 .type-option span strong{display:block;font-weight:700}
 .type-option span small{display:block;color:#7d8da7;font-weight:600;margin-top:4px}
 .form-actions{margin-top:14px;display:flex;gap:12px;align-items:center;justify-content:flex-end}
-.table-card{margin-top:20px;border:1px solid #eef4fb;padding:12px;border-radius:10px;background:#ffffff}
+.table-card{margin-top:20px;border:1px solid #eef4fb;padding:12px;border-radius:0;background:#ffffff}
 table.menu-table{width:100%;border-collapse:collapse}
 table.menu-table th, table.menu-table td{padding:14px 12px;border-bottom:1px solid #eef2f7;text-align:left;font-size:13px}
 .action-btn{background:#fff;border:1px solid #e1e9f3;padding:6px 8px;border-radius:6px;color:#1760c2;text-decoration:none}

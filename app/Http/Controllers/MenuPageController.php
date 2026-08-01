@@ -50,6 +50,8 @@ class MenuPageController extends Controller
             $data['cities'] = \App\Models\City::with(['country', 'state'])->get();
         } elseif ($menu->slug === 'state-type') {
             $data['state_types'] = \App\Models\StateType::all();
+        } elseif ($menu->slug === 'domain') {
+            $data['domains'] = \App\Models\Domain::all();
         }
 
         return view($menuView, $data);
@@ -97,6 +99,8 @@ class MenuPageController extends Controller
             $data['editingCity'] = $request->filled('edit') ? \App\Models\City::findOrFail($request->integer('edit')) : null;
         } elseif ($menu->slug === 'state-type') {
             $data['editingStateType'] = $request->filled('edit') ? \App\Models\StateType::findOrFail($request->integer('edit')) : null;
+        } elseif ($menu->slug === 'domain') {
+            $data['editingDomain'] = $request->filled('edit') ? \App\Models\Domain::findOrFail($request->integer('edit')) : null;
         }
 
         return view($createView, $data);
@@ -676,6 +680,122 @@ class MenuPageController extends Controller
         return redirect()->route('menus.show', $menu)->with('success', 'State Type deleted successfully.');
     }
 
+    public function storeDomain(Request $request): RedirectResponse
+    {
+        if (!\App\Helpers\PermissionHelper::check('domain', 'create')) {
+            abort(403, 'Unauthorized.');
+        }
+
+        $validated = $request->validate([
+            'domain_name' => ['required', 'string', 'max:255'],
+            'smtp_host' => ['nullable', 'string', 'max:255'],
+            'smtp_port' => ['nullable', 'string', 'max:255'],
+            'smtp_user' => ['nullable', 'string', 'max:255'],
+            'smtp_password' => ['nullable', 'string', 'max:255'],
+            'email_from' => ['nullable', 'string', 'max:255'],
+            'email_from_name' => ['nullable', 'string', 'max:255'],
+            'email_to_admin_user' => ['nullable', 'string', 'max:255'],
+            'email_header' => ['nullable', 'string'],
+            'email_footer' => ['nullable', 'string'],
+            'logo_path' => ['nullable', 'image', 'max:4096'],
+        ]);
+
+        $logoPath = null;
+        if ($request->hasFile('logo_path')) {
+            $file = $request->file('logo_path');
+            $fileName = 'logo_' . time() . '_' . rand(1000, 9999) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads'), $fileName);
+            $logoPath = 'uploads/' . $fileName;
+        }
+
+        \App\Models\Domain::create([
+            'domain_name' => $validated['domain_name'],
+            'smtp_host' => $validated['smtp_host'] ?? null,
+            'smtp_port' => $validated['smtp_port'] ?? null,
+            'smtp_user' => $validated['smtp_user'] ?? null,
+            'smtp_password' => $validated['smtp_password'] ?? null,
+            'email_from' => $validated['email_from'] ?? null,
+            'email_from_name' => $validated['email_from_name'] ?? null,
+            'email_to_admin_user' => $validated['email_to_admin_user'] ?? null,
+            'email_header' => $validated['email_header'] ?? null,
+            'email_footer' => $validated['email_footer'] ?? null,
+            'logo_path' => $logoPath,
+            'created_by' => session('authenticated_email') ?? null,
+        ]);
+
+        $menu = Menu::where('slug', 'domain')->first();
+        if ($request->has('return_here')) {
+            return redirect()->route('menus.create', $menu)->with('success', 'Domain created successfully.');
+        }
+
+        return redirect()->route('menus.show', $menu)->with('success', 'Domain created successfully.');
+    }
+
+    public function updateDomain(Request $request, \App\Models\Domain $domain): RedirectResponse
+    {
+        if (!\App\Helpers\PermissionHelper::check('domain', 'update')) {
+            abort(403, 'Unauthorized.');
+        }
+
+        $validated = $request->validate([
+            'domain_name' => ['required', 'string', 'max:255'],
+            'smtp_host' => ['nullable', 'string', 'max:255'],
+            'smtp_port' => ['nullable', 'string', 'max:255'],
+            'smtp_user' => ['nullable', 'string', 'max:255'],
+            'smtp_password' => ['nullable', 'string', 'max:255'],
+            'email_from' => ['nullable', 'string', 'max:255'],
+            'email_from_name' => ['nullable', 'string', 'max:255'],
+            'email_to_admin_user' => ['nullable', 'string', 'max:255'],
+            'email_header' => ['nullable', 'string'],
+            'email_footer' => ['nullable', 'string'],
+            'logo_path' => ['nullable', 'image', 'max:4096'],
+        ]);
+
+        $updateData = [
+            'domain_name' => $validated['domain_name'],
+            'smtp_host' => $validated['smtp_host'] ?? null,
+            'smtp_port' => $validated['smtp_port'] ?? null,
+            'smtp_user' => $validated['smtp_user'] ?? null,
+            'smtp_password' => $validated['smtp_password'] ?? null,
+            'email_from' => $validated['email_from'] ?? null,
+            'email_from_name' => $validated['email_from_name'] ?? null,
+            'email_to_admin_user' => $validated['email_to_admin_user'] ?? null,
+            'email_header' => $validated['email_header'] ?? null,
+            'email_footer' => $validated['email_footer'] ?? null,
+            'updated_by' => session('authenticated_email') ?? null,
+        ];
+
+        if ($request->hasFile('logo_path')) {
+            if ($domain->logo_path && file_exists(public_path($domain->logo_path))) {
+                @unlink(public_path($domain->logo_path));
+            }
+            $file = $request->file('logo_path');
+            $fileName = 'logo_' . time() . '_' . rand(1000, 9999) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads'), $fileName);
+            $updateData['logo_path'] = 'uploads/' . $fileName;
+        }
+
+        $domain->update($updateData);
+
+        $menu = Menu::where('slug', 'domain')->first();
+        return redirect()->route('menus.show', $menu)->with('success', 'Domain updated successfully.');
+    }
+
+    public function destroyDomain(\App\Models\Domain $domain): RedirectResponse
+    {
+        if (!\App\Helpers\PermissionHelper::check('domain', 'delete')) {
+            abort(403, 'Unauthorized.');
+        }
+
+        if ($domain->logo_path && file_exists(public_path($domain->logo_path))) {
+            @unlink(public_path($domain->logo_path));
+        }
+
+        $domain->delete();
+        $menu = Menu::where('slug', 'domain')->first();
+        return redirect()->route('menus.show', $menu)->with('success', 'Domain deleted successfully.');
+    }
+
     private function createMenuView(string $slug, string $name): void
     {
         $viewPath = resource_path("views/menus/{$slug}.blade.php");
@@ -693,8 +813,8 @@ class MenuPageController extends Controller
 @section('title', '{$name} | Travel Admin')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/roles.css') }}">
-<link rel="stylesheet" href="{{ asset('css/menus/{$slug}.css') }}">
+<link rel="stylesheet" href="{{ custom_asset('css/roles.css') }}">
+<link rel="stylesheet" href="{{ custom_asset('css/menus/{$slug}.css') }}">
 @endpush
 
 @section('content')
@@ -746,7 +866,7 @@ class MenuPageController extends Controller
 @endsection
 
 @push('scripts')
-<script src="{{ asset('js/menus/{$slug}.js') }}" defer></script>
+<script src="{{ custom_asset('js/menus/{$slug}.js') }}" defer></script>
 @endpush
 BLADE
             );
@@ -805,8 +925,8 @@ JS
 @section('title', 'Create {$name} | Travel Admin')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/roles.css') }}">
-<link rel="stylesheet" href="{{ asset('css/menus/{$slug}-create.css') }}">
+<link rel="stylesheet" href="{{ custom_asset('css/roles.css') }}">
+<link rel="stylesheet" href="{{ custom_asset('css/menus/{$slug}-create.css') }}">
 @endpush
 
 @section('content')
@@ -909,7 +1029,7 @@ JS
 @endsection
 
 @push('scripts')
-<script src="{{ asset('js/menus/{$slug}-create.js') }}" defer></script>
+<script src="{{ custom_asset('js/menus/{$slug}-create.js') }}" defer></script>
 @endpush
 BLADE
             );

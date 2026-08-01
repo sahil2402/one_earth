@@ -1,0 +1,28 @@
+/* Styles for Create Domain page */
+.cancel {
+    transition: all 0.2s ease;
+}
+.cancel:hover {
+    color: #124da0 !important;
+}
+.save {
+    transition: all 0.2s ease;
+}
+.save:hover {
+    background: #124da0 !important;
+    box-shadow: 0 10px 25px rgba(18,77,160,.2);
+}
+.form-row {
+    margin-bottom: 20px;
+}
+.checkbox-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.checkbox-field input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #1761bc;
+    cursor: pointer;
+}

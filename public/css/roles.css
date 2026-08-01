@@ -49,8 +49,8 @@ body{margin:0;color:#122b53;font-family:Inter,Arial,sans-serif;background:#f5f8f
 .primary-button{border:0;background:#1761bc;color:#fff;font:700 14px Inter,Arial,sans-serif;padding:14px 26px;border-radius:14px;cursor:pointer;transition:background .2s ease, transform .2s ease}
 .primary-button:hover{background:#134e98;transform:translateY(-1px)}
 .page-grid{display:grid;gap:24px;margin-bottom:24px}
-.role-form-card,.roles-table-card{background:#fff;border:1px solid #e6edf6;border-radius:24px;padding:28px;box-shadow:0 20px 60px rgba(23,51,91,.05)}
-.role-form-card{display:flex;flex-direction:column}
+.role-form-card{background:#fff;border:1px solid #e6edf6;padding:28px;box-shadow:0 20px 60px rgba(23,51,91,.05);display:flex;flex-direction:column}
+.roles-table-card{background:#fff;border:1px solid #e6edf6;border-radius:0;padding:28px;box-shadow:0 20px 60px rgba(23,51,91,.05)}
 .role-form-card.collapsed{display:none}
 .card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:24px}
 .card-header h2{font-size:22px;margin:0;color:#172f56}
@@ -79,7 +79,7 @@ body{margin:0;color:#122b53;font-family:Inter,Arial,sans-serif;background:#f5f8f
 .save:hover{background:#124f9b}
 .cancel{font:700 14px Inter,Arial,sans-serif;color:#1761bc;text-decoration:none}
 .table-header{display:flex;align-items:center;justify-content:space-between;gap:16px}
-.table-card{overflow-x:auto;border-radius:18px;box-shadow:0 20px 60px rgba(23,51,91,.04)}
+.table-card{overflow-x:auto;border-radius:0;box-shadow:0 20px 60px rgba(23,51,91,.04)}
 .table-card table{width:100%;border-collapse:collapse;background:#fff}
 .table-card th,.table-card td{padding:18px 16px;border-bottom:1px solid #eef3f8;text-align:left}
 .table-card th{font-size:12px;font-weight:700;color:#5d6c88;text-transform:uppercase;letter-spacing:.08em;background:#f6f9fc}

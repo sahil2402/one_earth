@@ -8,8 +8,8 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800" rel="stylesheet">
      <style>
-        * {
-            zoom: 0.97;
+        body {
+            zoom: {{ $websiteSetting->zoom_level ?? '100%' }};
         }
     </style>
     <style>

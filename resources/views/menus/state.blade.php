@@ -30,7 +30,7 @@
                 @endif
             </section>
 
-            <section class="card roles-table-card" style="background:#fff; border:1px solid #e6edf6; border-radius:24px; padding:28px; box-shadow:0 20px 60px rgba(23,51,91,.05);">
+            <section class="card roles-table-card" style="background:#fff; border:1px solid #e6edf6; border-radius:0; padding:28px; box-shadow:0 20px 60px rgba(23,51,91,.05);">
                 <div class="card-header" style="display:flex; align-items:flex-start; justify-content:space-between; gap:18px; margin-bottom:24px;">
                     <div>
                         <h2 style="font-size:22px; margin:0; color:#172f56;">State Directory</h2>

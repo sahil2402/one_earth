@@ -61,6 +61,13 @@ namespace App\Providers {
                 // Silence errors during migrations
             }
 
+            try {
+                $setting = WebsiteSetting::first();
+                View::share('websiteSetting', $setting);
+            } catch (\Exception $e) {
+                // Silence errors during migrations
+            }
+
             View::composer('components.dashboard.sidebar', function ($view): void {
                 $navigation = Menu::query()
                     ->whereNull('parent_id')
@@ -70,10 +77,7 @@ namespace App\Providers {
 
                 $navigation = \App\Helpers\PermissionHelper::filterMenus($navigation);
 
-                $setting = WebsiteSetting::first();
-
-                $view->with('navigationMenus', $navigation)
-                    ->with('websiteSetting', $setting);
+                $view->with('navigationMenus', $navigation);
             });
         }
     }

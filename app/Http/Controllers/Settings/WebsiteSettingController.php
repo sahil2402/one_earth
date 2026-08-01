@@ -27,10 +27,12 @@ class WebsiteSettingController extends Controller
         $data = $request->validate([
             'site_name' => ['required', 'string', 'max:255'],
             'logo' => ['nullable', 'image', 'max:2048'],
+            'zoom_level' => ['required', 'string', 'max:10'],
         ]);
 
         $setting = WebsiteSetting::first() ?? new WebsiteSetting();
         $setting->site_name = $data['site_name'];
+        $setting->zoom_level = $data['zoom_level'];
 
         if ($request->hasFile('logo')) {
             $file = $request->file('logo');
