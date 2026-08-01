@@ -123,4 +123,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'asset_mode' => env('APP_ASSET_MODE', 'dev'),
+
 ];

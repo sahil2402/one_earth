@@ -86,7 +86,7 @@ namespace {
             if (str_starts_with($path, 'public/')) {
                 $path = substr($path, 7);
             }
-            $mode = defined('APP_ASSET_MODE') ? APP_ASSET_MODE : 'dev';
+            $mode = config('app.asset_mode', defined('APP_ASSET_MODE') ? APP_ASSET_MODE : 'dev');
             if ($mode === 'live') {
                 return asset('public/' . $path);
             }
@@ -103,7 +103,7 @@ namespace {
             if (str_starts_with($path, 'public/')) {
                 $path = substr($path, 7);
             }
-            $mode = defined('APP_ASSET_MODE') ? APP_ASSET_MODE : 'dev';
+            $mode = config('app.asset_mode', defined('APP_ASSET_MODE') ? APP_ASSET_MODE : 'dev');
             if ($mode === 'live') {
                 return '/public/' . $path;
             }
