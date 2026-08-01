@@ -1,0 +1,14 @@
+/* Styles for Users menu page */
+.users-table-card {
+    background: #fff;
+    border: 1px solid #e6edf6;
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 20px 60px rgba(23,51,91,.05);
+    margin-top: 20px;
+}
+.empty-table {
+    text-align: center;
+    color: #6d7e9c;
+    padding: 30px;
+}

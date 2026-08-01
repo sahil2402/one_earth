@@ -1,0 +1,7 @@
+/* Styles for State Type form creation page */
+.cancel:hover {
+    text-decoration: underline !important;
+}
+.save:hover {
+    background: #1454a3 !important;
+}

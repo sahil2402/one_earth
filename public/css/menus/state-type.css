@@ -1,0 +1,13 @@
+/* Styles for State Type listing page */
+.action-button {
+    transition: all 0.2s ease;
+}
+.action-button:hover {
+    filter: brightness(0.95);
+}
+.empty {
+    text-align: center;
+    color: #8a99b0;
+    padding: 40px !important;
+    font-weight: 500;
+}
