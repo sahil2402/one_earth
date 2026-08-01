@@ -40,6 +40,8 @@
                     $currentMenuRoute = request()->route('menu');
                     if ($currentMenuRoute && $currentMenuRoute->slug === $child->slug) {
                         $isChildActive = true;
+                    } elseif (in_array($child->slug, ['roleandpermission', 'role-and-permission'], true) && request()->routeIs('roles.*')) {
+                        $isChildActive = true;
                     }
                 }
             @endphp
@@ -57,6 +59,8 @@
                             $isCurrentSub = false;
                             $currentMenuRoute = request()->route('menu');
                             if ($currentMenuRoute && $currentMenuRoute->slug === $child->slug) {
+                                $isCurrentSub = true;
+                            } elseif (in_array($child->slug, ['roleandpermission', 'role-and-permission'], true) && request()->routeIs('roles.*')) {
                                 $isCurrentSub = true;
                             }
                         @endphp
